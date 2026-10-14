@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Valentina ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital@0;1&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fce4ec; /* Tono rosa suave */
+            color: #333;
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+        }
+        .polaroid {
+            background: white;
+            padding: 15px 15px 25px 15px;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .polaroid img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+        .counter-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+        .counter-time {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        .letter {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .signature {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+        .list-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin: 20px 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        ul li {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        .vales-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .vale {
+            background: #f8bbd0;
+            border-radius: 20px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #880e4f;
+        }
+        .btn-canjear {
+            background: #d81b60;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-canjear:hover { background: #c2185b; }
+        .question-section {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+        .btn-yes, .btn-no {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            margin: 10px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+        }
+        .btn-yes { background: #d81b60; color: white; }
+        .btn-no { background: #fff; color: #d81b60; border: 2px solid #d81b60; position: relative; }
+        .map-container iframe {
+            width: 100%;
+            height: 250px;
+            border: none;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Luciano & Valentina</h1>
+
+    <!-- Sección del Contador -->
+    <div class="polaroid">
+        <!-- Reemplaza el link de abajo con el link de tu foto -->
+        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format&fit=crop" alt="Nosotros">
+        <div class="counter-title">Juntos desde hace</div>
+        <div id="time-elapsed" class="counter-time">Calculando...</div>
+    </div>
+
+    <!-- Sección de la Carta -->
+    <div class="polaroid letter">
+        "muchas veces digo que soy un cabron con buena suerte, pero no puedo ni imaginar la suerte que debí tener para tener a una mujer como tú en mi vida."
+        <div class="signature">Con amor<br><span style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; text-transform: none;">Luciano</span></div>
+    </div>
+
+    <!-- Lista -->
+    <div class="polaroid">
+        <h2 class="list-title">Lo que más amo de Valentina</h2>
+        <ul>
+            <li>Tu forma de reír</li>
+            <li>Tu forma de decir las cosas</li>
+            <li>Tu puchero y berrinche</li>
+            <li>Cuando me hablas bonito</li>
+            <li>Tu carita</li>
+        </ul>
+    </div>
+
+    <!-- Mapa -->
+    <div class="polaroid map-container">
+        <div class="counter-title" style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px;">Nuestro lugar</div>
+        <!-- Ve a Google Maps, busca el lugar, dale Compartir -> Insertar un mapa, y pega el src="" aquí -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.5977341381283!2d-99.2366885!3d19.4729112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d203a3b52479e5%3A0xc6ed7bd1bd5436be!2sCiudad%20Sat%C3%A9lite%2C%20Naucalpan%20de%20Ju%C3%A1rez%2C%20M%C3%A9x.!5e0!3m2!1ses-419!2smx!4v1710000000000!5m2!1ses-419!2smx" loading="lazy"></iframe>
+    </div>
+
+    <!-- Vales -->
+    <div class="polaroid">
+        <h2 class="list-title" style="font-size: 1.5rem;">Nuestros vales de amor</h2>
+        <p style="text-align: center; font-size: 0.9rem; color: #666;">Canjéalo cuando quieras. Solo se puede usar una vez.</p>
+        <div class="vales-container">
+            <div class="vale">
+                <span>🤍 Vale por un beso</span>
+                <button class="btn-canjear" onclick="canjear(this)">CANJEAR</button>
+            </div>
+            <div class="vale">
+                <span>🤍 Vale por un masaje</span>
+                <button class="btn-canjear" onclick="canjear(this)">CANJEAR</button>
+            </div>
+            <div class="vale">
+                <span>🤍 Vale por elegir la peli</span>
+                <button class="btn-canjear" onclick="canjear(this)">CANJEAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pregunta Final Interactiva -->
+    <div class="question-section">
+        <h2 style="font-family: 'Playfair Display', serif; font-style: italic;">Tengo algo que preguntarte...</h2>
+        <p>¿Me dejas hacerte la mujer más feliz del mundo siempre?</p>
+        <button class="btn-yes" onclick="alert('¡Sabía que dirías que sí! Te amo Valentina. ❤️')">Sí</button>
+        <button class="btn-no" id="btn-no">No</button>
+    </div>
+
+</div>
+
+<script>
+    // 1. LÓGICA DEL CONTADOR DE TIEMPO
+    // Pon aquí la fecha exacta en la que empezaron (Año-Mes-Día)
+    const startDate = new Date("2026-01-24T00:00:00"); 
+
+    function updateCounter() {
+        const now = new Date();
+        const diff = now - startDate;
+
+        const daysTotal = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const months = Math.floor(daysTotal / 30.44); 
+        const days = Math.floor(daysTotal % 30.44);
+        
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / 1000 / 60) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("time-elapsed").innerHTML = 
+            `${months} meses y ${days} días<br><span style="font-size:0.9rem; font-weight:400;">${hours}h ${mins}m ${secs}s</span>`;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    // 2. LÓGICA DEL BOTÓN QUE HUYE ("NO")
+    const btnNo = document.getElementById('btn-no');
+    
+    function moverBoton() {
+        const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 40);
+        const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 40);
+        btnNo.style.position = 'fixed';
+        btnNo.style.left = `${x}px`;
+        btnNo.style.top = `${y}px`;
+    }
+
+    // Funciona en compu (al pasar el mouse) y en cel (al intentar tocarlo)
+    btnNo.addEventListener('mouseover', moverBoton);
+    btnNo.addEventListener('touchstart', (e) => {
+        e.preventDefault(); 
+        moverBoton();
+    });
+
+    // 3. LÓGICA DE LOS VALES
+    function canjear(btn) {
+        alert("¡Vale canjeado con éxito! Tómale screenshot para validarlo.");
+        btn.innerText = "CANJEADO";
+        btn.style.background = "#9e9e9e";
+        btn.disabled = true;
+    }
+</script>
+
+</body>
+</html>
