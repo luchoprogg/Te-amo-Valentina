@@ -3,254 +3,542 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Valentina ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital@0;1&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <title>Creador de Regalos - Para Valentina</title>
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <!-- Librería para animaciones al hacer scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #fce4ec; /* Tono rosa suave */
-            color: #333;
-            font-family: 'Quicksand', sans-serif;
+        :root {
+            --bg-color: #fdf2f8; /* Rosa muy claro */
+            --primary: #db2777; /* Rosa fuerte/Magenta */
+            --primary-hover: #be185d;
+            --text-main: #1f2937;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 0;
         }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(#fbcfe8 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* --- Estilos Generales y Layout --- */
         .container {
-            max-width: 500px;
-            width: 100%;
+            max-width: 600px; /* Ancho máximo para PC, en celular tomará el 100% */
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
         }
-        h1 {
+
+        h1, h2, h3 {
             font-family: 'Playfair Display', serif;
-            font-style: italic;
-            text-align: center;
-            font-size: 2.5rem;
-            color: #1a1a1a;
-            margin-bottom: 30px;
-        }
-        .polaroid {
-            background: white;
-            padding: 15px 15px 25px 15px;
-            border-radius: 12px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
             text-align: center;
         }
-        .polaroid img {
+
+        .title-cursive {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary);
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* --- Estilos del CREADOR (Formulario) --- */
+        #creator-section {
+            display: block; /* Visible por defecto */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4b5563;
+        }
+
+        .form-group input, .form-group textarea {
             width: 100%;
-            border-radius: 8px;
+            padding: 12px;
+            border: 2px solid #fce7f3;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .file-upload {
+            border: 2px dashed #f472b6;
+            background: #fdf2f8;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
             margin-bottom: 15px;
+        }
+
+        .file-upload:hover {
+            background: #fce7f3;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            box-shadow: 0 4px 6px rgba(219, 39, 119, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        /* --- Estilos del RESULTADO FINAL --- */
+        #result-section {
+            display: none; /* Oculto por defecto */
+        }
+
+        .polaroid-img-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 125%; /* Relación de aspecto 4:5 tipo polaroid */
+            overflow: hidden;
+            border-radius: 10px;
+            background: #f3f4f6; /* Color de fondo por si no hay imagen */
+        }
+
+        .polaroid-img-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
-        .counter-title {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.5rem;
-            margin: 10px 0;
-        }
-        .counter-time {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #555;
-        }
-        .letter {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        .signature {
+
+        .counter-display {
             text-align: center;
-            margin-top: 15px;
-            font-weight: bold;
-            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        .counter-numbers {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .counter-labels {
             font-size: 0.9rem;
+            color: #6b7280;
+            text-transform: uppercase;
             letter-spacing: 2px;
         }
-        .list-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin: 20px 0;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
-        }
-        ul li {
-            margin: 10px 0;
+
+        .love-letter {
+            font-style: italic;
             font-size: 1.1rem;
+            text-align: center;
+            padding: 10px;
         }
-        .vales-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .vale {
-            background: #f8bbd0;
-            border-radius: 20px;
-            padding: 15px 20px;
+
+        .coupon {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
-            color: #880e4f;
-        }
-        .btn-canjear {
-            background: #d81b60;
-            color: white;
-            border: none;
-            padding: 8px 15px;
+            background: #fce7f3;
+            padding: 15px;
             border-radius: 15px;
-            font-family: 'Quicksand', sans-serif;
+            margin-bottom: 10px;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .coupon-text {
             font-weight: 600;
+        }
+
+        .btn-redeem {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
             cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
         }
-        .btn-canjear:hover { background: #c2185b; }
-        .question-section {
+
+        .btn-redeem:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-redeem.used {
+            background: #e5e7eb;
+            color: #9ca3af;
+            border-color: #e5e7eb;
+            cursor: not-allowed;
+        }
+
+        /* --- Botón Interactivo (NO) --- */
+        .interactive-question {
             text-align: center;
-            margin-top: 40px;
-            margin-bottom: 60px;
+            padding: 40px 0;
         }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+            min-height: 100px; /* Espacio para que el botón se mueva */
+        }
+
         .btn-yes, .btn-no {
             padding: 12px 30px;
             font-size: 1.2rem;
-            border: none;
-            border-radius: 25px;
-            margin: 10px;
-            cursor: pointer;
-            font-family: 'Quicksand', sans-serif;
+            border-radius: 30px;
             font-weight: 600;
-        }
-        .btn-yes { background: #d81b60; color: white; }
-        .btn-no { background: #fff; color: #d81b60; border: 2px solid #d81b60; position: relative; }
-        .map-container iframe {
-            width: 100%;
-            height: 250px;
+            cursor: pointer;
             border: none;
-            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .btn-yes {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.4);
+        }
+
+        .btn-yes:hover { transform: scale(1.05); }
+
+        .btn-no {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            position: absolute; /* Para poder moverlo libremente */
+        }
+
+        /* Responsive: Ajustes para PC */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 800px;
+            }
+            .title-cursive {
+                font-size: 4rem;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Luciano & Valentina</h1>
 
-    <!-- Sección del Contador -->
-    <div class="polaroid">
-        <!-- Reemplaza el link de abajo con el link de tu foto -->
-        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format&fit=crop" alt="Nosotros">
-        <div class="counter-title">Juntos desde hace</div>
-        <div id="time-elapsed" class="counter-time">Calculando...</div>
-    </div>
+    <!-- ==========================================
+         SECCIÓN 1: EL CREADOR (FORMULARIO)
+         ========================================== -->
+    <section id="creator-section" data-aos="fade-up">
+        <h1 class="title-cursive">Creador de Regalos</h1>
+        <p style="text-align: center; margin-bottom: 30px; color: #6b7280;">Personaliza tu página para Valentina.</p>
 
-    <!-- Sección de la Carta -->
-    <div class="polaroid letter">
-        "muchas veces digo que soy un cabron con buena suerte, pero no puedo ni imaginar la suerte que debí tener para tener a una mujer como tú en mi vida."
-        <div class="signature">Con amor<br><span style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; text-transform: none;">Luciano</span></div>
-    </div>
-
-    <!-- Lista -->
-    <div class="polaroid">
-        <h2 class="list-title">Lo que más amo de Valentina</h2>
-        <ul>
-            <li>Tu forma de reír</li>
-            <li>Tu forma de decir las cosas</li>
-            <li>Tu puchero y berrinche</li>
-            <li>Cuando me hablas bonito</li>
-            <li>Tu carita</li>
-        </ul>
-    </div>
-
-    <!-- Mapa -->
-    <div class="polaroid map-container">
-        <div class="counter-title" style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px;">Nuestro lugar</div>
-        <!-- Ve a Google Maps, busca el lugar, dale Compartir -> Insertar un mapa, y pega el src="" aquí -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.5977341381283!2d-99.2366885!3d19.4729112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d203a3b52479e5%3A0xc6ed7bd1bd5436be!2sCiudad%20Sat%C3%A9lite%2C%20Naucalpan%20de%20Ju%C3%A1rez%2C%20M%C3%A9x.!5e0!3m2!1ses-419!2smx!4v1710000000000!5m2!1ses-419!2smx" loading="lazy"></iframe>
-    </div>
-
-    <!-- Vales -->
-    <div class="polaroid">
-        <h2 class="list-title" style="font-size: 1.5rem;">Nuestros vales de amor</h2>
-        <p style="text-align: center; font-size: 0.9rem; color: #666;">Canjéalo cuando quieras. Solo se puede usar una vez.</p>
-        <div class="vales-container">
-            <div class="vale">
-                <span>🤍 Vale por un beso</span>
-                <button class="btn-canjear" onclick="canjear(this)">CANJEAR</button>
+        <div class="card">
+            <h2>Datos Básicos</h2>
+            <br>
+            <div class="form-group">
+                <label>Sus Nombres (Ej. Luciano & Valentina)</label>
+                <input type="text" id="input-names" value="Luciano & Valentina">
             </div>
-            <div class="vale">
-                <span>🤍 Vale por un masaje</span>
-                <button class="btn-canjear" onclick="canjear(this)">CANJEAR</button>
-            </div>
-            <div class="vale">
-                <span>🤍 Vale por elegir la peli</span>
-                <button class="btn-canjear" onclick="canjear(this)">CANJEAR</button>
+            <div class="form-group">
+                <label>¿Cuándo empezó todo? (Fecha de inicio)</label>
+                <input type="date" id="input-date" value="2026-01-24">
             </div>
         </div>
-    </div>
 
-    <!-- Pregunta Final Interactiva -->
-    <div class="question-section">
-        <h2 style="font-family: 'Playfair Display', serif; font-style: italic;">Tengo algo que preguntarte...</h2>
-        <p>¿Me dejas hacerte la mujer más feliz del mundo siempre?</p>
-        <button class="btn-yes" onclick="alert('¡Sabía que dirías que sí! Te amo Valentina. ❤️')">Sí</button>
-        <button class="btn-no" id="btn-no">No</button>
-    </div>
+        <div class="card">
+            <h2>Imágenes</h2>
+            <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 10px;">(Sube una foto desde tu dispositivo)</p>
+            <div class="file-upload" onclick="document.getElementById('input-main-photo').click()">
+                📷 Haz clic para subir foto principal
+                <input type="file" id="input-main-photo" accept="image/*" style="display: none;" onchange="previewImage(this)">
+            </div>
+            <img id="photo-preview" src="" style="width: 100%; border-radius: 10px; display: none; margin-top: 10px;">
+        </div>
+
+        <div class="card">
+            <h2>La Carta</h2>
+            <br>
+            <div class="form-group">
+                <label>Escribe tu mensaje especial</label>
+                <textarea id="input-letter" rows="4">muchas veces digo que soy un cabron con buena suerte, pero no puedo ni imaginar la suerte que debí tener para tener a una mujer como tú en mi vida.</textarea>
+            </div>
+        </div>
+
+        <button class="btn-primary" onclick="generatePage()">🪄 Generar Sorpresa Mágica</button>
+    </section>
+
+
+    <!-- ==========================================
+         SECCIÓN 2: EL RESULTADO FINAL (PARA VALENTINA)
+         ========================================== -->
+    <section id="result-section">
+        <h1 id="res-names" class="title-cursive" data-aos="zoom-in"></h1>
+
+        <!-- Foto y Contador -->
+        <div class="card" data-aos="fade-up">
+            <div class="polaroid-img-container">
+                <!-- Usamos una imagen por defecto si no suben nada -->
+                <img id="res-photo" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format&fit=crop" alt="Nosotros">
+            </div>
+            <div class="counter-display">
+                <h3 style="font-size: 1rem; color: #6b7280; font-family: 'Poppins', sans-serif;">JUNTOS DESDE HACE</h3>
+                <div id="res-counter-numbers" class="counter-numbers">Cargando...</div>
+                <div class="counter-labels">Meses y Días</div>
+                <div id="res-counter-time" style="font-size: 0.9rem; margin-top: 5px; font-weight: 600; color: #9ca3af;"></div>
+            </div>
+        </div>
+
+        <!-- Carta -->
+        <div class="card" data-aos="fade-right">
+            <div class="love-letter">
+                "<span id="res-letter"></span>"
+            </div>
+            <p style="text-align: center; margin-top: 15px; font-weight: bold;">Con amor, Luciano.</p>
+        </div>
+
+        <!-- Vales -->
+        <div class="card" data-aos="fade-left">
+            <h2 style="margin-bottom: 20px;">Nuestros Vales</h2>
+            <div class="coupon">
+                <span class="coupon-text">🤍 Vale por un beso</span>
+                <button class="btn-redeem" onclick="redeemCoupon(this)">Canjear</button>
+            </div>
+            <div class="coupon">
+                <span class="coupon-text">🍕 Vale por elegir la cena</span>
+                <button class="btn-redeem" onclick="redeemCoupon(this)">Canjear</button>
+            </div>
+            <div class="coupon">
+                <span class="coupon-text">💆🏻‍♀️ Vale por un masaje</span>
+                <button class="btn-redeem" onclick="redeemCoupon(this)">Canjear</button>
+            </div>
+        </div>
+
+        <!-- Pregunta Final Interactiva -->
+        <div class="interactive-question" data-aos="zoom-in" data-aos-delay="300">
+            <h2>Tengo algo que preguntarte...</h2>
+            <p style="margin-bottom: 30px;">¿Me dejas hacerte la mujer más feliz siempre?</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="triggerConfetti()">¡SÍ! ❤️</button>
+                <button class="btn-no" id="btn-runaway">No</button>
+            </div>
+        </div>
+    </section>
 
 </div>
 
+<!-- Librerías Externas -->
+<!-- AOS (Animaciones al hacer scroll) -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<!-- Canvas Confetti (Para la celebración final) -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <script>
-    // 1. LÓGICA DEL CONTADOR DE TIEMPO
-    // Pon aquí la fecha exacta en la que empezaron (Año-Mes-Día)
-    const startDate = new Date("2026-01-24T00:00:00"); 
-
-    function updateCounter() {
-        const now = new Date();
-        const diff = now - startDate;
-
-        const daysTotal = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const months = Math.floor(daysTotal / 30.44); 
-        const days = Math.floor(daysTotal % 30.44);
-        
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const mins = Math.floor((diff / 1000 / 60) % 60);
-        const secs = Math.floor((diff / 1000) % 60);
-
-        document.getElementById("time-elapsed").innerHTML = 
-            `${months} meses y ${days} días<br><span style="font-size:0.9rem; font-weight:400;">${hours}h ${mins}m ${secs}s</span>`;
-    }
-    setInterval(updateCounter, 1000);
-    updateCounter();
-
-    // 2. LÓGICA DEL BOTÓN QUE HUYE ("NO")
-    const btnNo = document.getElementById('btn-no');
-    
-    function moverBoton() {
-        const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 40);
-        const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 40);
-        btnNo.style.position = 'fixed';
-        btnNo.style.left = `${x}px`;
-        btnNo.style.top = `${y}px`;
-    }
-
-    // Funciona en compu (al pasar el mouse) y en cel (al intentar tocarlo)
-    btnNo.addEventListener('mouseover', moverBoton);
-    btnNo.addEventListener('touchstart', (e) => {
-        e.preventDefault(); 
-        moverBoton();
+    // Inicializar animaciones AOS
+    AOS.init({
+        duration: 1000,
+        once: true // La animación solo sucede una vez al bajar
     });
 
-    // 3. LÓGICA DE LOS VALES
-    function canjear(btn) {
-        alert("¡Vale canjeado con éxito! Tómale screenshot para validarlo.");
-        btn.innerText = "CANJEADO";
-        btn.style.background = "#9e9e9e";
-        btn.disabled = true;
-    }
-</script>
+    // Variables globales
+    let startDateValue = "";
+    let uploadedImageURL = "";
+    let timerInterval;
 
+    // 1. Lógica para previsualizar la foto subida
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedImageURL = e.target.result;
+                const preview = document.getElementById('photo-preview');
+                preview.src = uploadedImageURL;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // 2. Lógica para Generar la Página (Pasar del Creador al Resultado)
+    function generatePage() {
+        // Obtener datos del formulario
+        const names = document.getElementById('input-names').value;
+        startDateValue = document.getElementById('input-date').value;
+        const letter = document.getElementById('input-letter').value;
+
+        // Validar que haya fecha
+        if(!startDateValue) {
+            alert("¡Papi Lucho, no olvides poner la fecha de inicio!");
+            return;
+        }
+
+        // Inyectar datos en el resultado
+        document.getElementById('res-names').innerText = names;
+        document.getElementById('res-letter').innerText = letter;
+        if(uploadedImageURL) {
+            document.getElementById('res-photo').src = uploadedImageURL;
+        }
+
+        // Ocultar creador, mostrar resultado
+        document.getElementById('creator-section').style.display = 'none';
+        document.getElementById('result-section').style.display = 'block';
+
+        // Refrescar animaciones porque estaban ocultas
+        AOS.refresh();
+
+        // Iniciar el contador
+        startCounter();
+    }
+
+    // 3. Lógica del Contador de Tiempo Exacto
+    function startCounter() {
+        const startDate = new Date(startDateValue + "T00:00:00");
+        
+        // Limpiar intervalo anterior si existe
+        if(timerInterval) clearInterval(timerInterval);
+
+        timerInterval = setInterval(() => {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const daysTotal = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const months = Math.floor(daysTotal / 30.44); 
+            const days = Math.floor(daysTotal % 30.44);
+            
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / 1000 / 60) % 60);
+            const secs = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("res-counter-numbers").innerText = `${months} y ${days}`;
+            document.getElementById("res-counter-time").innerText = `${hours}h ${mins}m ${secs}s`;
+        }, 1000);
+    }
+
+    // 4. Lógica de los Vales de Amor
+    function redeemCoupon(btn) {
+        if(btn.classList.contains('used')) return;
+        
+        alert("¡Vale canjeado! Prepárate Lucho.");
+        btn.innerText = "Canjeado";
+        btn.classList.add('used');
+        
+        // Lanzar un poquito de confeti al canjear
+        confetti({
+            particleCount: 50,
+            spread: 60,
+            origin: { y: 0.8 },
+            colors: ['#db2777', '#fbcfe8']
+        });
+    }
+
+    // 5. Lógica del Botón que huye (El "NO")
+    const btnRunaway = document.getElementById('btn-runaway');
+    
+    function moveButton() {
+        const container = document.querySelector('.buttons-container');
+        const containerRect = container.getBoundingClientRect();
+        
+        // Movimiento aleatorio dentro de ciertos límites
+        const maxX = containerRect.width - btnRunaway.offsetWidth;
+        const maxY = 200; // Rango vertical de movimiento
+
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY) - (maxY/2);
+
+        btnRunaway.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    // Soporte para PC (hover) y Celular (toque)
+    btnRunaway.addEventListener('mouseover', moveButton);
+    btnRunaway.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Evita que se haga clic accidentalmente en celular
+        moveButton();
+    });
+
+    // 6. Lógica del Confeti (El "SÍ")
+    function triggerConfetti() {
+        const duration = 3 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            const particleCount = 50 * (timeLeft / duration);
+            // Confeti desde la izquierda
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+            // Confeti desde la derecha
+            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+        }, 250);
+
+        // Cambiar texto de los botones
+        document.querySelector('.btn-yes').innerText = "¡SABÍA QUE DIRÍAS QUE SÍ! Te amo";
+        document.querySelector('.btn-yes').style.width = "100%";
+        btnRunaway.style.display = "none";
+    }
+
+</script>
 </body>
 </html>
