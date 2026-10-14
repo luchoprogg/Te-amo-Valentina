@@ -1,413 +1,123 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Valentina ❤️</title>
-    <!-- Fuentes de Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <!-- Librería para animaciones al hacer scroll -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #fdf2f8; /* Rosa muy claro */
-            --primary: #db2777; /* Rosa fuerte/Magenta */
-            --primary-hover: #be185d;
-            --text-main: #1f2937;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: radial-gradient(#fbcfe8 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        h2, h3 {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-        }
-
-        .title-cursive {
-            font-family: 'Dancing Script', cursive;
-            color: var(--primary);
-            font-size: 3.5rem;
-            text-align: center;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .polaroid-img-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 125%; 
-            overflow: hidden;
-            border-radius: 10px;
-            background: #f3f4f6;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .polaroid-img-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .counter-display {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .counter-numbers {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            font-family: 'Playfair Display', serif;
-            line-height: 1.2;
-        }
-
-        .counter-labels {
-            font-size: 0.9rem;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-        }
-
-        .love-letter {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.2rem;
-            text-align: center;
-            padding: 10px;
-            color: #374151;
-        }
-
-        .signature {
-            text-align: center;
-            margin-top: 15px;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .list-items {
-            list-style: none;
-            text-align: center;
-            padding: 10px 0;
-        }
-
-        .list-items li {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 250px;
-            border: none;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-
-        .coupon {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #fce7f3;
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            border-left: 5px solid var(--primary);
-            transition: all 0.3s;
-        }
-        
-        .coupon-text {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .btn-redeem {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            padding: 6px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
-        }
-
-        .btn-redeem:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-redeem.used {
-            background: #e5e7eb;
-            color: #9ca3af;
-            border-color: #e5e7eb;
-            cursor: not-allowed;
-            border-left-color: #9ca3af;
-        }
-
-        .interactive-question {
-            text-align: center;
-            padding: 40px 0 60px 0;
-        }
-
-        .buttons-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            position: relative;
-            min-height: 120px;
-        }
-
-        .btn-yes, .btn-no {
-            padding: 12px 35px;
-            font-size: 1.2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            font-family: 'Poppins', sans-serif;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn-yes {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.4);
-            z-index: 2;
-        }
-
-        .btn-yes:hover { transform: scale(1.05); }
-
-        .btn-no {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            position: absolute;
-            z-index: 1;
-        }
-
-        @media (min-width: 768px) {
-            .container { max-width: 700px; }
-            .title-cursive { font-size: 4.5rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fde6ef">
+<title>Sorpresa de amor 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@1,500;1,700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div class="bg" aria-hidden="true"></div>
 
-<div class="container">
+<main>
+  <!-- ═════════ VISTA 1 · Creador ═════════ -->
+  <section id="view-creator" class="view">
+    <form id="form" class="panel" novalidate>
+      <h1>Crea tu sorpresa</h1>
+      <p class="lead">Rellena los datos. Todo se guarda solo en este navegador.</p>
 
-    <!-- CAMBIA ESTO: Sus nombres -->
-    <h1 class="title-cursive" data-aos="fade-down">Luciano & Valentina</h1>
+      <div class="row">
+        <label>Nombre 1<input id="n1" maxlength="30" autocomplete="off" placeholder="Luciano"></label>
+        <label>Nombre 2<input id="n2" maxlength="30" autocomplete="off" placeholder="Valentina"></label>
+      </div>
 
-    <!-- Sección 1: Foto y Contador -->
-    <div class="card" data-aos="fade-up">
-        <div class="polaroid-img-container">
-            <!-- CAMBIA ESTO: Pega el link de su foto entre las comillas de src="" -->
-            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format&fit=crop" alt="Nosotros">
-        </div>
-        <div class="counter-display">
-            <div class="counter-labels">Juntos desde hace</div>
-            <div id="counter-numbers" class="counter-numbers">Cargando...</div>
-            <div id="counter-time" style="font-size: 1rem; margin-top: 8px; font-weight: 600; color: #9ca3af;"></div>
-        </div>
-    </div>
+      <label>Fecha de inicio de la relación<input type="date" id="date"></label>
 
-    <!-- Sección 2: La Carta -->
-    <div class="card" data-aos="fade-right">
-        <div class="love-letter">
-            <!-- CAMBIA ESTO: Tu mensaje -->
-            "muchas veces digo que soy un cabron con buena suerte, pero no puedo ni imaginar la suerte que debí tener para tener a una mujer como tú en mi vida."
-        </div>
-        <div class="signature">CON AMOR<br><span style="font-family: 'Dancing Script', cursive; font-size: 2rem; font-weight: normal;">Luciano</span></div>
-    </div>
+      <label>Foto de portada<input type="file" id="photo" accept="image/*">
+        <small>Se reduce automáticamente (máx. 10 MB de origen).</small>
+      </label>
+      <div class="thumb" id="thumb" hidden><img alt="Vista previa de la foto"><span>Así se verá tu foto</span></div>
 
-    <!-- Sección 3: Lo que más amas -->
-    <div class="card" data-aos="fade-left">
-        <h2 style="margin-bottom: 15px;">Lo que más amo de ti</h2>
-        <ul class="list-items">
-            <!-- CAMBIA ESTO: Puedes agregar o quitar <li> -->
-            <li>✨ Tu forma de reír</li>
-            <li>✨ Tu puchero y berrinche</li>
-            <li>✨ Cuando me hablas bonito</li>
-            <li>✨ Tu carita hermosa</li>
-        </ul>
-    </div>
+      <label>Tu carta<textarea id="letter" rows="7" maxlength="1200" placeholder="Escribe aquí lo que quieres decirle…"></textarea></label>
 
-    <!-- Sección 4: El Mapa -->
-    <div class="card" data-aos="fade-up">
-        <h2>Nuestro lugar</h2>
-        <div class="map-container">
-            <!-- CAMBIA ESTO: El iframe de Google Maps -->
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.5977341381283!2d-99.2366885!3d19.4729112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d203a3b52479e5%3A0xc6ed7bd1bd5436be!2sCiudad%20Sat%C3%A9lite%2C%20Naucalpan%20de%20Ju%C3%A1rez%2C%20M%C3%A9x.!5e0!3m2!1ses-419!2smx!4v1710000000000!5m2!1ses-419!2smx" loading="lazy"></iframe>
-        </div>
-    </div>
+      <fieldset>
+        <legend>Lo que amo de ti (4 o 5)</legend>
+        <div id="loves"></div>
+        <button type="button" class="ghost" id="add-love">+ Añadir</button>
+      </fieldset>
 
-    <!-- Sección 5: Vales de Amor -->
-    <div class="card" data-aos="fade-right">
-        <h2 style="margin-bottom: 5px;">Nuestros vales de amor</h2>
-        <p style="text-align: center; font-size: 0.85rem; color: #6b7280; margin-bottom: 20px;">Canjéalo cuando quieras. Solo un uso.</p>
-        
-        <!-- CAMBIA ESTO: Los textos de los vales -->
-        <div class="coupon">
-            <span class="coupon-text">🤍 Vale por un beso</span>
-            <button class="btn-redeem" onclick="redeemCoupon(this)">CANJEAR</button>
-        </div>
-        <div class="coupon">
-            <span class="coupon-text">🤍 Vale por un masaje</span>
-            <button class="btn-redeem" onclick="redeemCoupon(this)">CANJEAR</button>
-        </div>
-        <div class="coupon">
-            <span class="coupon-text">🤍 Vale por elegir la peli</span>
-            <button class="btn-redeem" onclick="redeemCoupon(this)">CANJEAR</button>
-        </div>
-        <div class="coupon">
-            <span class="coupon-text">🤍 Vale por tu postre favorito</span>
-            <button class="btn-redeem" onclick="redeemCoupon(this)">CANJEAR</button>
-        </div>
-    </div>
+      <fieldset>
+        <legend>Vales de amor (3 a 5)</legend>
+        <div id="vouchers"></div>
+        <button type="button" class="ghost" id="add-voucher">+ Añadir</button>
+      </fieldset>
 
-    <!-- Sección 6: Pregunta Final -->
-    <div class="interactive-question" data-aos="zoom-in">
-        <h2 style="font-style: italic;">Tengo algo que preguntarte...</h2>
-        <p style="margin-top: 10px; font-size: 1.1rem;">¿Me dejas hacerte la mujer más feliz del mundo siempre?</p>
-        <div class="buttons-container">
-            <button class="btn-yes" onclick="triggerConfetti()">Sí ❤️</button>
-            <button class="btn-no" id="btn-runaway">No</button>
-        </div>
-    </div>
+      <label>Mapa de un lugar especial (opcional)
+        <textarea id="map" rows="3" placeholder='<iframe src="https://www.google.com/maps/embed?..."></iframe>'></textarea>
+        <small>Google Maps → Compartir → Insertar un mapa → Copiar HTML.</small>
+      </label>
 
+      <p id="error" class="error" role="alert" hidden></p>
+      <button type="submit" class="cta big-cta">Generar sorpresa</button>
+      <button type="button" class="link" id="reset">Empezar de cero</button>
+    </form>
+  </section>
+
+  <!-- ═════════ VISTA 2 · Sorpresa ═════════ -->
+  <section id="view-result" class="view" hidden>
+    <button id="edit" class="edit" type="button" aria-label="Editar sorpresa">✎</button>
+
+    <h1 id="r-title" class="title" data-aos="fade-down"></h1>
+
+    <article class="glass polaroid" data-aos="fade-up">
+      <img id="r-photo" alt="Nuestra foto">
+      <p id="r-since" class="since"></p>
+      <div class="count" role="timer" aria-label="Tiempo juntos">
+        <div><b>0</b><small>meses</small></div>
+        <div><b>0</b><small>días</small></div>
+        <div><b>00</b><small>horas</small></div>
+        <div><b>00</b><small>min</small></div>
+        <div><b>00</b><small>seg</small></div>
+      </div>
+    </article>
+
+    <section class="glass" data-aos="fade-up">
+      <blockquote id="r-letter"></blockquote>
+      <p id="r-sign" class="sign"></p>
+    </section>
+
+    <section class="glass" data-aos="fade-up">
+      <h2>Lo que amo de ti</h2>
+      <ul id="r-loves" class="loves"></ul>
+    </section>
+
+    <section class="glass" id="r-map-box" data-aos="fade-up">
+      <h2>Nuestro lugar especial</h2>
+      <div id="r-map" class="map"></div>
+    </section>
+
+    <section class="glass" data-aos="fade-up">
+      <h2>Nuestros vales</h2>
+      <div id="r-vouchers"></div>
+    </section>
+
+    <section class="glass ask" id="ask" data-aos="zoom-in">
+      <h2>¿Me dejas hacerte la mujer más feliz?</h2>
+      <div class="answers">
+        <button type="button" class="cta" id="yes">Sí 💖</button>
+        <span class="slot"><button type="button" class="ghost" id="no">No</button></span>
+      </div>
+    </section>
+  </section>
+</main>
+
+<!-- Modal reutilizable (canjear vale / respuesta "Sí") -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="box">
+    <div class="big" id="m-emoji">💖</div>
+    <h3 id="m-title"></h3>
+    <p id="m-text"></p>
+    <button type="button" class="cta" id="m-close">Cerrar</button>
+  </div>
 </div>
 
-<!-- Librerías Externas -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-<script>
-    // Iniciar animaciones al hacer scroll
-    AOS.init({ duration: 1000, once: true });
-
-    // ==========================================
-    // CAMBIA LA FECHA AQUÍ (Año-Mes-DíaT00:00:00)
-    // Ejemplo: Si empezaron el 15 de Febrero de 2023 -> "2023-02-15T00:00:00"
-    // ==========================================
-    const startDate = new Date("2025-05-24T00:00:00"); 
-
-    function updateCounter() {
-        const now = new Date();
-        const diff = now - startDate;
-
-        const daysTotal = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const months = Math.floor(daysTotal / 30.44); 
-        const days = Math.floor(daysTotal % 30.44);
-        
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const mins = Math.floor((diff / 1000 / 60) % 60);
-        const secs = Math.floor((diff / 1000) % 60);
-
-        document.getElementById("counter-numbers").innerHTML = `${months} meses<br>y ${days} días`;
-        document.getElementById("counter-time").innerText = `${hours}h ${mins}m ${secs}s`;
-    }
-    setInterval(updateCounter, 1000);
-    updateCounter();
-
-    // Lógica de los Vales de Amor
-    function redeemCoupon(btn) {
-        if(btn.classList.contains('used')) return;
-        
-        alert("¡Vale canjeado! Tómale screenshot y mándamelo por WhatsApp. 😉");
-        btn.innerText = "CANJEADO";
-        btn.classList.add('used');
-        btn.parentElement.style.opacity = "0.7";
-        
-        confetti({ particleCount: 60, spread: 70, origin: { y: 0.8 }, colors: ['#db2777', '#fbcfe8'] });
-    }
-
-    // Lógica del Botón que huye ("NO")
-    const btnRunaway = document.getElementById('btn-runaway');
-    
-    function moveButton() {
-        const container = document.querySelector('.buttons-container');
-        const containerRect = container.getBoundingClientRect();
-        
-        const maxX = containerRect.width - btnRunaway.offsetWidth;
-        const maxY = 150; 
-
-        const randomX = Math.floor(Math.random() * maxX) - (maxX/2);
-        const randomY = Math.floor(Math.random() * maxY) - (maxY/2);
-
-        btnRunaway.style.transform = `translate(${randomX}px, ${randomY}px)`;
-    }
-
-    btnRunaway.addEventListener('mouseover', moveButton);
-    btnRunaway.addEventListener('touchstart', (e) => {
-        e.preventDefault(); 
-        moveButton();
-    });
-
-    // Lógica del Confeti ("SÍ")
-    function triggerConfetti() {
-        const duration = 3 * 1000;
-        const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-        function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
-        const interval = setInterval(function() {
-            const timeLeft = animationEnd - Date.now();
-            if (timeLeft <= 0) { return clearInterval(interval); }
-
-            const particleCount = 50 * (timeLeft / duration);
-            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-        }, 250);
-
-        const btnYes = document.querySelector('.btn-yes');
-        btnYes.innerHTML = "¡SABÍA QUE DIRÍAS QUE SÍ!<br><span style='font-size:0.9rem'>Te amo demasiado ❤️</span>";
-        btnRunaway.style.display = "none";
-    }
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+<script src="script.js" defer></script>
 </body>
 </html>
