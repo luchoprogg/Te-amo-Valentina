@@ -1,4 +1,3 @@
-// === RUTEO: VERIFICAR SI HAY DATOS EN LA URL ===
 const urlParams = new URLSearchParams(window.location.search);
 
 if (urlParams.has('data')) {
@@ -8,15 +7,10 @@ if (urlParams.has('data')) {
     document.getElementById('view-creator').style.display = 'block';
 }
 
-// === FUNCIONES DEL CREADOR (BACKOFFICE) ===
-
-// Permite agregar más inputs infinitos para fotos, listas y vales
 function addInput(containerId, className, placeholderTxt) {
     const container = document.getElementById(containerId);
-    // Limitar a 6 fotos máximo para no saturar
     if(containerId === 'photos-container' && container.children.length >= 6) {
-        alert("Máximo 6 fotos permitidas.");
-        return;
+        alert("Máximo 6 fotos permitidas."); return;
     }
     const input = document.createElement('input');
     input.type = containerId === 'photos-container' ? 'url' : 'text';
@@ -25,11 +19,9 @@ function addInput(containerId, className, placeholderTxt) {
     container.appendChild(input);
 }
 
-// Extrae todos los valores de una clase de inputs
 function getValuesByClass(className) {
-    const inputs = document.querySelectorAll(`.${className}`);
     let values = [];
-    inputs.forEach(input => {
+    document.querySelectorAll(`.${className}`).forEach(input => {
         if (input.value.trim() !== '') values.push(input.value.trim());
     });
     return values;
@@ -39,25 +31,19 @@ function generateLink() {
     const names = document.getElementById('in-names').value;
     const date = document.getElementById('in-date').value;
     const letter = document.getElementById('in-letter').value;
-    const map = document.getElementById('in-map').value;
-    
+    const youtube = document.getElementById('in-youtube').value;
     const photos = getValuesByClass('in-photo');
     const reasons = getValuesByClass('in-reason');
     const coupons = getValuesByClass('in-coupon');
 
     if(!names || !date || photos.length === 0) {
-        alert("Faltan datos clave: Nombres, Fecha o al menos 1 Foto.");
-        return;
+        alert("Faltan datos clave: Nombres, Fecha o al menos 1 Foto."); return;
     }
 
-    // Creamos un Objeto con toda la información
-    const payload = { n: names, d: date, l: letter, m: map, p: photos, r: reasons, c: coupons };
-
-    // Convertimos a Texto, encriptamos para soportar emojis/tildes y lo hacemos Base64
+    const payload = { n: names, d: date, l: letter, y: youtube, p: photos, r: reasons, c: coupons };
     const jsonString = JSON.stringify(payload);
     const encodedData = btoa(unescape(encodeURIComponent(jsonString)));
 
-    // Generamos la URL Final
     const baseURL = window.location.origin + window.location.pathname;
     const finalURL = `${baseURL}?data=${encodedData}`;
     
@@ -73,39 +59,53 @@ function copyLink() {
 }
 
 
-// === FUNCIONES DE LA SORPRESA (PARA ELLA) ===
-
 function loadSurprise() {
     try {
-        // Desencriptar datos
-        const encodedData = urlParams.get('data');
-        const jsonString = decodeURIComponent(escape(atob(encodedData)));
+        const jsonString = decodeURIComponent(escape(atob(urlParams.get('data'))));
         const data = JSON.parse(jsonString);
 
-        // Inyectar Básicos
+        // 1. Textos
         document.getElementById('out-names').innerText = data.n;
         document.getElementById('out-letter').innerText = data.l;
         
-        // Inyectar Mapa
-        if(data.m) {
-            document.getElementById('out-map').src = data.m;
+        // 2. Extractor de YouTube
+        if(data.y) {
+            let videoId = "";
+            if (data.y.includes('youtu.be/')) videoId = data.y.split('youtu.be/')[1].split('?')[0];
+            else if (data.y.includes('youtube.com/watch')) videoId = new URLSearchParams(data.y.split('?')[1]).get('v');
+            
+            if(videoId) {
+                // Añadimos autoplay
+                document.getElementById('out-youtube').src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
+            } else {
+                document.getElementById('youtube-card').style.display = 'none';
+            }
         } else {
-            document.getElementById('map-card').style.display = 'none';
+            document.getElementById('youtube-card').style.display = 'none';
         }
 
-        // Inyectar Galería de Fotos (Slider Horizontal)
-        const gallery = document.getElementById('out-gallery');
-        data.p.forEach(photoUrl => {
-            gallery.innerHTML += `<div class="photo-item"><img src="${photoUrl}"></div>`;
-        });
+        // 3. Distribución de Fotos hacia abajo
+        if (data.p.length > 0) {
+            document.getElementById('out-photo-main').src = data.p[0]; // La foto 1 va arriba con el contador
+            
+            // Si hay más fotos, se crean tarjetas nuevas hacia abajo
+            const extraPhotosContainer = document.getElementById('extra-photos');
+            for(let i = 1; i < data.p.length; i++) {
+                extraPhotosContainer.innerHTML += `
+                    <div class="card" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="polaroid-img-container">
+                            <img src="${data.p[i]}">
+                        </div>
+                    </div>
+                `;
+            }
+        }
 
-        // Inyectar "Cosas que amo"
+        // 4. Razones
         const reasonsList = document.getElementById('out-reasons');
-        data.r.forEach(reason => {
-            reasonsList.innerHTML += `<li>✨ ${reason}</li>`;
-        });
+        data.r.forEach(reason => { reasonsList.innerHTML += `<li>✨ ${reason}</li>`; });
 
-        // Inyectar Vales
+        // 5. Vales
         const couponsContainer = document.getElementById('out-coupons');
         data.c.forEach(coupon => {
             couponsContainer.innerHTML += `
@@ -116,8 +116,10 @@ function loadSurprise() {
             `;
         });
 
-        // Iniciar Contador
         startCounter(data.d);
+
+        // Iniciar animaciones AOS al terminar de inyectar todo
+        setTimeout(() => { AOS.init({ once: false }); }, 300);
 
     } catch(e) {
         alert("El enlace parece estar roto o incompleto.");
@@ -142,7 +144,6 @@ function startCounter(dateString) {
     }, 1000);
 }
 
-// Interacciones
 function redeemCoupon(btn) {
     if(btn.classList.contains('used')) return;
     alert("¡Vale canjeado! Prepárate para cumplirlo 😉");
@@ -157,13 +158,12 @@ function moveButton() {
     const container = document.querySelector('.buttons-container').getBoundingClientRect();
     const maxX = container.width - btnRunaway.offsetWidth;
     const randomX = Math.floor(Math.random() * maxX) - (maxX/2);
-    const randomY = Math.floor(Math.random() * 100) - 50;
+    const randomY = Math.floor(Math.random() * 80) - 40;
     btnRunaway.style.transform = `translate(${randomX}px, ${randomY}px)`;
 }
 btnRunaway.addEventListener('mouseover', moveButton);
 btnRunaway.addEventListener('touchstart', (e) => { e.preventDefault(); moveButton(); });
 
-// Confeti Final
 function triggerConfetti() {
     confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
     document.querySelector('.btn-yes').innerText = "¡Sabía que dirías que sí! ❤️";
