@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Valentina ❤️</title>
-    <!-- Enlace a tu archivo CSS -->
     <link rel="stylesheet" href="styles.css">
-    <!-- Fuentes de Google -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <!-- Confeti -->
+    <!-- Confeti y Animaciones -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
 
@@ -35,8 +34,8 @@
                 <textarea id="in-letter" rows="4" placeholder="Escribe tu mensaje romántico..."></textarea>
             </div>
             <div class="form-group">
-                <label>Link de Google Maps (Iframe src="")</label>
-                <input type="text" id="in-map" placeholder="https://www.google.com/maps/embed?...">
+                <label>Link de su canción (YouTube)</label>
+                <input type="url" id="in-youtube" placeholder="Ej. https://www.youtube.com/watch?v=...">
             </div>
         </div>
 
@@ -44,9 +43,9 @@
             <h2>2. Galería de Fotos (Hasta 6)</h2>
             <p class="help-text">Sube tus fotos a <b>postimages.org</b> y pega aquí los enlaces directos (.jpg o .png).</p>
             <div id="photos-container">
-                <input type="url" class="dynamic-input in-photo" placeholder="Link de foto 1">
+                <input type="url" class="dynamic-input in-photo" placeholder="Link de la Foto Principal (1)">
             </div>
-            <button class="btn-secondary" onclick="addInput('photos-container', 'in-photo', 'Link de foto')">+ Agregar otra foto</button>
+            <button class="btn-secondary" onclick="addInput('photos-container', 'in-photo', 'Link de otra foto')">+ Agregar otra foto</button>
         </div>
 
         <div class="card">
@@ -79,15 +78,14 @@
          VISTA 2: LA SORPRESA (RESULTADO FINAL)
          ============================================== -->
     <div id="view-result" class="container" style="display: none;">
-        <h1 id="out-names" class="title-cursive slide-in"></h1>
+        
+        <h1 id="out-names" class="title-cursive" data-aos="fade-down" data-aos-duration="1500"></h1>
 
-        <!-- Galería de Fotos -->
-        <div class="card fade-in delay-1">
-            <div class="gallery-container" id="out-gallery">
-                <!-- Las fotos se inyectarán aquí con JS -->
+        <!-- Foto Principal y Contador -->
+        <div class="card" data-aos="zoom-in" data-aos-duration="1200">
+            <div class="polaroid-img-container">
+                <img id="out-photo-main" src="" alt="Nosotros">
             </div>
-            <p class="swipe-text">Desliza para ver más ➜</p>
-            
             <div class="counter-display">
                 <p class="counter-label">JUNTOS DESDE HACE</p>
                 <div id="out-counter-numbers" class="counter-numbers"></div>
@@ -96,36 +94,35 @@
         </div>
 
         <!-- Carta -->
-        <div class="card fade-in delay-2">
+        <div class="card" data-aos="fade-up" data-aos-duration="1000">
             <div class="love-letter">"<span id="out-letter"></span>"</div>
         </div>
 
         <!-- Razones dinámicas -->
-        <div class="card fade-in delay-3">
+        <div class="card" data-aos="fade-right" data-aos-duration="1000">
             <h2>Lo que más amo de ti</h2>
-            <ul id="out-reasons" class="custom-list">
-                <!-- Las razones se inyectarán aquí -->
-            </ul>
+            <ul id="out-reasons" class="custom-list"></ul>
         </div>
 
-        <!-- Mapa -->
-        <div class="card fade-in delay-4" id="map-card">
-            <h2>Nuestro lugar</h2>
-            <div class="map-wrapper">
-                <iframe id="out-map" src="" allowfullscreen="" loading="lazy"></iframe>
+        <!-- Canción (YouTube) -->
+        <div class="card" id="youtube-card" data-aos="fade-left" data-aos-duration="1000">
+            <h2>Nuestra Canción</h2>
+            <div class="youtube-wrapper">
+                <iframe id="out-youtube" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
+
+        <!-- Aquí se inyectarán las fotos extras hacia abajo -->
+        <div id="extra-photos"></div>
 
         <!-- Vales dinámicos -->
-        <div class="card fade-in delay-5">
+        <div class="card" data-aos="fade-up" data-aos-duration="1000">
             <h2>Nuestros Vales</h2>
-            <div id="out-coupons">
-                <!-- Los vales se inyectarán aquí -->
-            </div>
+            <div id="out-coupons"></div>
         </div>
 
         <!-- Pregunta interactiva -->
-        <div class="interactive-question fade-in delay-6">
+        <div class="interactive-question" data-aos="zoom-in" data-aos-duration="1000">
             <h2>Tengo algo que preguntarte...</h2>
             <p>¿Me dejas hacerte la mujer más feliz del mundo siempre?</p>
             <div class="buttons-container">
@@ -135,7 +132,8 @@
         </div>
     </div>
 
-    <!-- Enlace a tu archivo JS -->
+    <!-- Animaciones AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
