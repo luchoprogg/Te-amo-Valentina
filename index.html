@@ -1,123 +1,141 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#fde6ef">
-<title>Sorpresa de amor 💕</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@1,500;1,700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Valentina ❤️</title>
+    <!-- Enlace a tu archivo CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <!-- Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-<div class="bg" aria-hidden="true"></div>
 
-<main>
-  <!-- ═════════ VISTA 1 · Creador ═════════ -->
-  <section id="view-creator" class="view">
-    <form id="form" class="panel" novalidate>
-      <h1>Crea tu sorpresa</h1>
-      <p class="lead">Rellena los datos. Todo se guarda solo en este navegador.</p>
+    <!-- ==============================================
+         VISTA 1: EL CREADOR (BACKOFFICE)
+         ============================================== -->
+    <div id="view-creator" class="container" style="display: none;">
+        <h1 class="title-cursive">Creador Pro</h1>
+        <p class="subtitle">Personaliza todo al 100%</p>
+        
+        <div class="card">
+            <h2>1. Datos Básicos</h2>
+            <div class="form-group">
+                <label>Sus Nombres</label>
+                <input type="text" id="in-names" placeholder="Ej. Luciano & Valentina">
+            </div>
+            <div class="form-group">
+                <label>Fecha de inicio</label>
+                <input type="date" id="in-date">
+            </div>
+            <div class="form-group">
+                <label>Tu Carta / Mensaje</label>
+                <textarea id="in-letter" rows="4" placeholder="Escribe tu mensaje romántico..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Link de Google Maps (Iframe src="")</label>
+                <input type="text" id="in-map" placeholder="https://www.google.com/maps/embed?...">
+            </div>
+        </div>
 
-      <div class="row">
-        <label>Nombre 1<input id="n1" maxlength="30" autocomplete="off" placeholder="Luciano"></label>
-        <label>Nombre 2<input id="n2" maxlength="30" autocomplete="off" placeholder="Valentina"></label>
-      </div>
+        <div class="card">
+            <h2>2. Galería de Fotos (Hasta 6)</h2>
+            <p class="help-text">Sube tus fotos a <b>postimages.org</b> y pega aquí los enlaces directos (.jpg o .png).</p>
+            <div id="photos-container">
+                <input type="url" class="dynamic-input in-photo" placeholder="Link de foto 1">
+            </div>
+            <button class="btn-secondary" onclick="addInput('photos-container', 'in-photo', 'Link de foto')">+ Agregar otra foto</button>
+        </div>
 
-      <label>Fecha de inicio de la relación<input type="date" id="date"></label>
+        <div class="card">
+            <h2>3. Lo que amo de ti</h2>
+            <div id="reasons-container">
+                <input type="text" class="dynamic-input in-reason" placeholder="Ej. Tu forma de reír">
+            </div>
+            <button class="btn-secondary" onclick="addInput('reasons-container', 'in-reason', 'Otra cosa que amas')">+ Agregar razón</button>
+        </div>
 
-      <label>Foto de portada<input type="file" id="photo" accept="image/*">
-        <small>Se reduce automáticamente (máx. 10 MB de origen).</small>
-      </label>
-      <div class="thumb" id="thumb" hidden><img alt="Vista previa de la foto"><span>Así se verá tu foto</span></div>
+        <div class="card">
+            <h2>4. Vales de Amor</h2>
+            <div id="coupons-container">
+                <input type="text" class="dynamic-input in-coupon" placeholder="Ej. Vale por un masaje">
+            </div>
+            <button class="btn-secondary" onclick="addInput('coupons-container', 'in-coupon', 'Otro vale')">+ Agregar vale</button>
+        </div>
 
-      <label>Tu carta<textarea id="letter" rows="7" maxlength="1200" placeholder="Escribe aquí lo que quieres decirle…"></textarea></label>
+        <button class="btn-primary" onclick="generateLink()">🪄 Generar Link Mágico</button>
+        
+        <div id="link-box" class="link-result-box">
+            <p><b>¡Listo! Copia este link y mándaselo:</b></p>
+            <textarea id="generated-url" readonly rows="4"></textarea>
+            <button class="btn-primary" style="margin-top: 10px;" onclick="copyLink()">Copiar Link</button>
+        </div>
+    </div>
 
-      <fieldset>
-        <legend>Lo que amo de ti (4 o 5)</legend>
-        <div id="loves"></div>
-        <button type="button" class="ghost" id="add-love">+ Añadir</button>
-      </fieldset>
 
-      <fieldset>
-        <legend>Vales de amor (3 a 5)</legend>
-        <div id="vouchers"></div>
-        <button type="button" class="ghost" id="add-voucher">+ Añadir</button>
-      </fieldset>
+    <!-- ==============================================
+         VISTA 2: LA SORPRESA (RESULTADO FINAL)
+         ============================================== -->
+    <div id="view-result" class="container" style="display: none;">
+        <h1 id="out-names" class="title-cursive slide-in"></h1>
 
-      <label>Mapa de un lugar especial (opcional)
-        <textarea id="map" rows="3" placeholder='<iframe src="https://www.google.com/maps/embed?..."></iframe>'></textarea>
-        <small>Google Maps → Compartir → Insertar un mapa → Copiar HTML.</small>
-      </label>
+        <!-- Galería de Fotos -->
+        <div class="card fade-in delay-1">
+            <div class="gallery-container" id="out-gallery">
+                <!-- Las fotos se inyectarán aquí con JS -->
+            </div>
+            <p class="swipe-text">Desliza para ver más ➜</p>
+            
+            <div class="counter-display">
+                <p class="counter-label">JUNTOS DESDE HACE</p>
+                <div id="out-counter-numbers" class="counter-numbers"></div>
+                <div id="out-counter-time" class="counter-time"></div>
+            </div>
+        </div>
 
-      <p id="error" class="error" role="alert" hidden></p>
-      <button type="submit" class="cta big-cta">Generar sorpresa</button>
-      <button type="button" class="link" id="reset">Empezar de cero</button>
-    </form>
-  </section>
+        <!-- Carta -->
+        <div class="card fade-in delay-2">
+            <div class="love-letter">"<span id="out-letter"></span>"</div>
+        </div>
 
-  <!-- ═════════ VISTA 2 · Sorpresa ═════════ -->
-  <section id="view-result" class="view" hidden>
-    <button id="edit" class="edit" type="button" aria-label="Editar sorpresa">✎</button>
+        <!-- Razones dinámicas -->
+        <div class="card fade-in delay-3">
+            <h2>Lo que más amo de ti</h2>
+            <ul id="out-reasons" class="custom-list">
+                <!-- Las razones se inyectarán aquí -->
+            </ul>
+        </div>
 
-    <h1 id="r-title" class="title" data-aos="fade-down"></h1>
+        <!-- Mapa -->
+        <div class="card fade-in delay-4" id="map-card">
+            <h2>Nuestro lugar</h2>
+            <div class="map-wrapper">
+                <iframe id="out-map" src="" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
 
-    <article class="glass polaroid" data-aos="fade-up">
-      <img id="r-photo" alt="Nuestra foto">
-      <p id="r-since" class="since"></p>
-      <div class="count" role="timer" aria-label="Tiempo juntos">
-        <div><b>0</b><small>meses</small></div>
-        <div><b>0</b><small>días</small></div>
-        <div><b>00</b><small>horas</small></div>
-        <div><b>00</b><small>min</small></div>
-        <div><b>00</b><small>seg</small></div>
-      </div>
-    </article>
+        <!-- Vales dinámicos -->
+        <div class="card fade-in delay-5">
+            <h2>Nuestros Vales</h2>
+            <div id="out-coupons">
+                <!-- Los vales se inyectarán aquí -->
+            </div>
+        </div>
 
-    <section class="glass" data-aos="fade-up">
-      <blockquote id="r-letter"></blockquote>
-      <p id="r-sign" class="sign"></p>
-    </section>
+        <!-- Pregunta interactiva -->
+        <div class="interactive-question fade-in delay-6">
+            <h2>Tengo algo que preguntarte...</h2>
+            <p>¿Me dejas hacerte la mujer más feliz del mundo siempre?</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="triggerConfetti()">¡SÍ! ❤️</button>
+                <button class="btn-no" id="btn-runaway">No</button>
+            </div>
+        </div>
+    </div>
 
-    <section class="glass" data-aos="fade-up">
-      <h2>Lo que amo de ti</h2>
-      <ul id="r-loves" class="loves"></ul>
-    </section>
-
-    <section class="glass" id="r-map-box" data-aos="fade-up">
-      <h2>Nuestro lugar especial</h2>
-      <div id="r-map" class="map"></div>
-    </section>
-
-    <section class="glass" data-aos="fade-up">
-      <h2>Nuestros vales</h2>
-      <div id="r-vouchers"></div>
-    </section>
-
-    <section class="glass ask" id="ask" data-aos="zoom-in">
-      <h2>¿Me dejas hacerte la mujer más feliz?</h2>
-      <div class="answers">
-        <button type="button" class="cta" id="yes">Sí 💖</button>
-        <span class="slot"><button type="button" class="ghost" id="no">No</button></span>
-      </div>
-    </section>
-  </section>
-</main>
-
-<!-- Modal reutilizable (canjear vale / respuesta "Sí") -->
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
-  <div class="box">
-    <div class="big" id="m-emoji">💖</div>
-    <h3 id="m-title"></h3>
-    <p id="m-text"></p>
-    <button type="button" class="cta" id="m-close">Cerrar</button>
-  </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
-<script src="script.js" defer></script>
+    <!-- Enlace a tu archivo JS -->
+    <script src="script.js"></script>
 </body>
 </html>
